@@ -77,7 +77,7 @@ module image_processing(
     assign oBlue  = mCCD_B;
     
     // Generate the gray value.
-    // (This example uses a weighted average by adding green twice.)
+    // (This uses a weighted average by adding green twice.)
     assign oGrey = (oRed + oGreen + oGreen + oBlue) / 4;
     
     // In this design the final convolution result (after absolute value)
@@ -91,7 +91,6 @@ module image_processing(
     // -------------------------------------------------------------------
     // First Line Buffer (Line_Buffer1)
     // This module delays the incoming pixel stream to form two taps.
-    // (You must have a Line_Buffer1 module in your project.)
     Line_Buffer1 u0 (
         .clken(iDVAL),
         .clock(iCLK),
@@ -103,7 +102,6 @@ module image_processing(
     // -------------------------------------------------------------------
     // Second Line Buffer for Convolution (Line_Buffer2)
     // This module is assumed to provide 3 taps from a delayed version of oGrey.
-    // (Again, you must provide an implementation of Line_Buffer2.)
     Line_Buffer2 u1 (
         .clken(mDVAL),
         .clock(iCLK),
@@ -178,7 +176,7 @@ module image_processing(
             mDVAL     <= ({iY_Cont[0], iX_Cont[0]} == 2'b00) ? iDVAL : 1'b0;
             
             // Generate the CCD RGB values based on the least–significant bits
-            // of the X and Y counters (this is one method to reassemble the Bayer data).
+            // of the X and Y counters
             if ({iY_Cont[0], iX_Cont[0]} == 2'b10) begin
                 mCCD_R <= mDATA_0;
                 mCCD_G <= mDATAd_0 + mDATA_1;
