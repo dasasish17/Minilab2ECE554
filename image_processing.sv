@@ -248,12 +248,12 @@ module Convolution_Filter (
     //   k_bl = -1,  k_bc = -2,  k_br = -1.
     //
     // For vertical filtering (isHorz == 0):
-    //   k_tl =  1,  k_tc =  0,  k_tr =  1,
+    //   k_tl =  1,  k_tc =  0,  k_tr =  -1,
     //   k_ml =  2,  k_mc =  0,  k_mr = -2,
     //   k_bl =  1,  k_bc =  0,  k_br = -1.
     assign k_tl =  12'd1;
     assign k_tc =  isHorz ? 12'd2 : 12'd0;
-    assign k_tr =  12'd1;
+    assign k_tr =  isHorz ? 12'd1 : -12'd1;
     assign k_ml =  isHorz ? 12'd0 : 12'd2;
     assign k_mc =  12'd0;
     assign k_mr =  isHorz ? 12'd0 : -12'd2;
